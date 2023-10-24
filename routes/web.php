@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FullCalenderController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\MensagemTesteMail;
 
@@ -38,3 +39,6 @@ Route::get('/mensagem-teste', function() {
     //Mail::to('atendimento@jorgesantana.net.br')->send(new MensagemTesteMail());
     //return 'E-mail enviado com sucesso!';
 });
+
+Route::get('full-calender', [FullCalenderController::class, 'index']);
+Route::post('full-calender/action', [FullCalenderController::class, 'action']);
