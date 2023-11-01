@@ -40,5 +40,9 @@ Route::get('/mensagem-teste', function() {
     //return 'E-mail enviado com sucesso!';
 });
 
-Route::get('full-calender', [FullCalenderController::class, 'index']);
+Route::get('full-calender', [FullCalenderController::class, 'index'])->name('full-calender')->middleware('verified');
 Route::post('full-calender/action', [FullCalenderController::class, 'action']);
+
+//Rota de criação
+Route::post('full-calender', [FullCalenderController::class, 'create']);
+Route::put('full-calender', 'App\Http\Controllers\FullCalenderController@update')->name('FullCalender.update');

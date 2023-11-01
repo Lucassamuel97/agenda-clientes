@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 
 class FullCalenderController extends Controller
 {
+	private $objEvent;
+
+	public function __construct(){
+        $this->objEvent = new Event();
+    }
+
     public function index(Request $request)
     {
     	if($request->ajax())
@@ -16,7 +24,12 @@ class FullCalenderController extends Controller
                        ->get(['id', 'title', 'start', 'end']);
             return response()->json($data);
     	}
-    	return view('full-calender');
+
+		$loggedInUser = Auth::user();
+
+		$users = User::whereKeyNot($loggedInUser->getKey())->get();
+
+    	return view('/calendario/calendario', compact('users','loggedInUser'));
     }
     public function action(Request $request)
     {
@@ -52,4 +65,26 @@ class FullCalenderController extends Controller
     		}
     	}
     }
+
+	public function create(Request $request){
+		// dd($request->title);
+
+		$dados = $request->all('start', 'end', 'title');
+        $dados['user_id'] = auth()->user()->id;
+        
+        $evento = Event::create($dados);
+
+        return redirect()->route('full-calender');
+	}
+
+	public function update(Request $request){
+
+		$this->objEvent->where(['id'=>$request->id])->update([
+            'title' => $request->title,
+            'start' => $request->start,
+            'end'   => $request->end
+        ]);
+
+        return redirect('full-calender');
+	}
 }

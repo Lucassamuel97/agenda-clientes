@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>How to Use Fullcalendar in Laravel 8</title>
+    <title>Calendario Teste</title>
     
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -17,29 +17,15 @@
   
 <div class="container">
     <br />
-    <h1 class="text-center text-primary"><u>How to Use Fullcalendar in Laravel 8</u></h1>
+    <h1 class="text-center text-primary"><u>Calendario Teste</u></h1>
     <br />
 
     <div id="calendar"></div>
 
 </div>
 
-<div class="modal fade" id="eventoModal" tabindex="-1" role="dialog" aria-labelledby="eventoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eventoModalLabel">Detalhes do Evento</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Início:</strong> <span id="inicioEvento"></span></p>
-                <p><strong>Fim:</strong> <span id="fimEvento"></span></p>
-            </div>
-        </div>
-    </div>
-</div>
+@include('calendario/modalAdd',['users' => $users])
+@include('calendario/modalEdit')
 
 <script>
 
@@ -63,29 +49,13 @@ $(document).ready(function () {
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var title = prompt('Event Title:');
+            var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+            var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
-            if(title)
-            {
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        type: 'add'
-                    },
-                    success:function(data)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Created Successfully");
-                    }
-                })
-            }
+            $('#ModalAdd #start').val(start);
+			      $('#ModalAdd #end').val(end);
+			      $('#ModalAdd #type').val('add');
+			      $('#ModalAdd').modal('show');
         },
         editable:true,
         eventResize: function(event, delta)
@@ -137,9 +107,11 @@ $(document).ready(function () {
 
         eventClick:function(calEvent)
         {
-            $('#inicioEvento').text(calEvent.start.format('YYYY-MM-DD HH:mm:ss'));
-            $('#fimEvento').text(calEvent.end.format('YYYY-MM-DD HH:mm:ss'));
-            $('#eventoModal').modal('show');
+            $('#ModalEdit #title').val(calEvent.title);
+            $('#ModalEdit #start').val(calEvent.start.format('YYYY-MM-DD HH:mm:ss'));
+			      $('#ModalEdit #end').val(calEvent.end.format('YYYY-MM-DD HH:mm:ss'));
+			      $('#ModalEdit #id').val(calEvent.id);
+			      $('#ModalEdit').modal('show');      
         }
     });
 
