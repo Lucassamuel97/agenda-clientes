@@ -3,6 +3,8 @@
 use App\Http\Controllers\FullCalenderController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\MensagemTesteMail;
+use App\Http\Controllers\ClientController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +48,5 @@ Route::post('full-calender/action', [FullCalenderController::class, 'action']);
 //Rota de criação
 Route::post('full-calender', [FullCalenderController::class, 'create']);
 Route::put('full-calender', 'App\Http\Controllers\FullCalenderController@update')->name('FullCalender.update');
+
+Route::resource('clientes', ClientController::class);
