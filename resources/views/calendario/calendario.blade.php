@@ -39,7 +39,7 @@ $(document).ready(function () {
             var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
             var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
-            $('#ModalAdd #start').val(start);
+                $('#ModalAdd #start').val(start);
 			      $('#ModalAdd #end').val(end);
 			      $('#ModalAdd #type').val('add');
 			      $('#ModalAdd').modal('show');
@@ -64,7 +64,7 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
+                    alert("Evento atualizado com sucesso");
                 }
             })
         },
@@ -87,7 +87,7 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
+                    alert("Evento atualizado com sucesso");
                 }
             })
         },
@@ -96,9 +96,12 @@ $(document).ready(function () {
         {
             $('#ModalEdit #title').val(calEvent.title);
             $('#ModalEdit #start').val(calEvent.start.format('YYYY-MM-DD HH:mm:ss'));
-			      $('#ModalEdit #end').val(calEvent.end.format('YYYY-MM-DD HH:mm:ss'));
-			      $('#ModalEdit #id').val(calEvent.id);
-			      $('#ModalEdit').modal('show');      
+			$('#ModalEdit #end').val(calEvent.end.format('YYYY-MM-DD HH:mm:ss'));
+			$('#ModalEdit #id').val(calEvent.id);
+			$('#ModalEdit #description').val(calEvent.description);
+			$('#ModalEdit #client').val(calEvent.client);
+			$('#ModalEdit #color').val(calEvent.color);
+			$('#ModalEdit').modal('show');      
         }
     });
 

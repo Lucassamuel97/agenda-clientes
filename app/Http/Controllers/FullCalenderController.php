@@ -22,7 +22,7 @@ class FullCalenderController extends Controller
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'title', 'start', 'end']);
+                       ->get(['id', 'title', 'start', 'end','client','description','color','user_id']);
             return response()->json($data);
     	}
 
@@ -83,9 +83,12 @@ class FullCalenderController extends Controller
 		$this->objEvent->where(['id'=>$request->id])->update([
             'title' => $request->title,
             'start' => $request->start,
-            'end'   => $request->end
+            'end'   => $request->end,
+            'description'   => $request->description,
+            'color'   => $request->color,
+            'client'   => $request->client
         ]);
-
+		
         return redirect('full-calender');
 	}
 }
