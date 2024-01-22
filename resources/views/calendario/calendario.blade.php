@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Calendario Teste</title>
-    
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@extends('layouts.calendar') 
 
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-</head>
-<body>
+@section('content')
   
 <div class="container">
     <br />
-    <h1 class="text-center text-primary"><u>Calendario Teste</u></h1>
+    <h1 class="text-center text-primary"><u>Agenda</u></h1>
     <br />
 
     <div id="calendar"></div>
 
 </div>
 
-@include('calendario/modalAdd',['users' => $users])
+@include('calendario/modalAdd',['clientes' => $clientes])
 @include('calendario/modalEdit')
 
-<script>
+<script type="text/javascript">
 
 $(document).ready(function () {
 
@@ -116,8 +103,6 @@ $(document).ready(function () {
     });
 
 });
-  
+
 </script>
-  
-</body>
-</html>
+@endsection

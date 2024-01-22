@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Client;
 use App\Models\User;
 
 class FullCalenderController extends Controller
@@ -26,10 +27,11 @@ class FullCalenderController extends Controller
     	}
 
 		$loggedInUser = Auth::user();
+		// $users = User::whereKeyNot($loggedInUser->getKey())->get();
 
-		$users = User::whereKeyNot($loggedInUser->getKey())->get();
+		$clientes = Client::all();
 
-    	return view('/calendario/calendario', compact('users','loggedInUser'));
+    	return view('/calendario/calendario', compact('clientes','loggedInUser'));
     }
     public function action(Request $request)
     {
@@ -67,11 +69,10 @@ class FullCalenderController extends Controller
     }
 
 	public function create(Request $request){
-		// dd($request->title);
 
-		$dados = $request->all('start', 'end', 'title');
+		$dados = $request->all('client', 'description', 'start', 'end', 'title','color');
         $dados['user_id'] = auth()->user()->id;
-        
+		
         $evento = Event::create($dados);
 
         return redirect()->route('full-calender');

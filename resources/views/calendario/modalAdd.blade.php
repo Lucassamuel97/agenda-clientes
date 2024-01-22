@@ -1,10 +1,10 @@
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 			<form class="form-horizontal" method="POST" action="full-calender">
             @csrf
 			  <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Adicionar compromisso</h4>
+                <h4 class="modal-title" id="myModalLabel">Adicionar Agendamento</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
 			  </div>
 			  <div class="modal-body">
@@ -25,9 +25,9 @@
                   <div class="form-group">
 					<label for="description" class="col-sm-12 control-label">Selecionar usuário</label>
 					<div class="col-sm-12">
-                        <select class="form-control" id="user" name="user" >
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        <select class="form-control" id="client" name="client" >
+                            @foreach($clientes as $cliente)
+                                <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                             @endforeach
                         </select>
                     </div>
